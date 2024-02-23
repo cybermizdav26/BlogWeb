@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 
+from app.managers import BlogManager
+
 User = get_user_model()
 
 class Category(models.Model):
@@ -21,7 +23,9 @@ class Blog(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_published = models.BooleanField(default=False)
 
+    objects = BlogManager()
     def __str__(self):
         return self.title
 
@@ -35,7 +39,7 @@ class Comments(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    reply = models.ForeignKey('self', on_delete=models.CASCADE)
+    reply = models.ForeignKey('self', on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.text

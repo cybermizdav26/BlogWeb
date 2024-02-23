@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.urls import reverse
 
 from app.models import Blog
-from .forms import BlogForm, LoginForm, SignupForm
+from .forms import BlogForm, LoginForm, SignupForm, CommentForm
 
 
 def home(request):
@@ -60,7 +60,20 @@ def create_blog(request):
 
 def detail_blog(request, id):
     blog = get_object_or_404(Blog, id=id)
-    return render(request, 'detail_blog.html', {"blog": blog})
+    form = CommentForm()
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.blog = blog
+            comment.author = request.user
+            comment.save()
+            return redirect('app:detail', blog.id)
+    context = {
+        "blog": blog,
+        "form": form,
+    }
+    return render(request, 'detail_blog.html', context)
 
 @login_required(login_url='/login/')
 def edit_blog(request, slug):

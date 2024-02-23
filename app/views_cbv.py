@@ -26,7 +26,8 @@ from app.models import Blog
 #         return redirect(reverse('app:home'))
 
 class HomePageView(ListView):
-    model = Blog
+    # model = Blog
+    queryset = Blog.objects.published()
     template_name = 'home.html'
     context_object_name = 'blogs'
 
@@ -37,7 +38,7 @@ class HomePageView(ListView):
 
     # def get_queryset(self):
     #     qs = super().get_queryset()
-    #     qs = qs.filter(author=self.request.user)
+    #     qs = qs.is_published()
     #     return qs
 
 class CreateBlogView(CreateView):
