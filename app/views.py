@@ -14,6 +14,7 @@ def home(request):
 
     return render(request, 'home.html', {'blogs': blogs})
 
+
 def login_view(request):
     form = LoginForm()
     if request.method == "POST":
@@ -37,9 +38,11 @@ def signup_view(request):
         # print(form.errors)
     return render(request, 'sign_up.html', {'form': form})
 
+
 def logout_view(request):
     logout(request)
     return redirect(reverse('app:login'))
+
 
 @login_required(login_url='/login/')
 def create_blog(request):
@@ -58,6 +61,7 @@ def create_blog(request):
     context = {'form': form}
     return render(request, 'create_blog.html', context)
 
+
 def detail_blog(request, id):
     blog = get_object_or_404(Blog, id=id)
     form = CommentForm()
@@ -74,6 +78,7 @@ def detail_blog(request, id):
         "form": form,
     }
     return render(request, 'detail_blog.html', context)
+
 
 @login_required(login_url='/login/')
 def edit_blog(request, slug):

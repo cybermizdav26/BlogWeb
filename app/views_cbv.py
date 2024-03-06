@@ -25,6 +25,7 @@ from app.models import Blog
 #             blog.save()
 #         return redirect(reverse('app:home'))
 
+
 class HomePageView(ListView):
     # model = Blog
     queryset = Blog.objects.published()
@@ -41,11 +42,11 @@ class HomePageView(ListView):
     #     qs = qs.is_published()
     #     return qs
 
+
 class CreateBlogView(CreateView):
     template_name = 'create_blog.html'
     form_class = BlogForm
     success_url = '/'
-    
 
     def form_valid(self, form):
         blog = form.save(commit=False)

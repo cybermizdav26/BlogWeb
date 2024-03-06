@@ -5,10 +5,10 @@ from account.managers import UserManager
 
 
 class CustomUser(AbstractUser):
-    phone = models.CharField(max_length=11, unique=True)
+    phone = models.CharField(max_length=13, unique=True)
     image = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
 
-    USERNAME_FIELD = 'phone'
+    USERNAME_FIELD = 'username'
     objects = UserManager()
 

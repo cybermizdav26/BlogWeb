@@ -7,11 +7,10 @@ User = get_user_model()
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ("phone",)
-        # exclude = ("username",)
+        fields = ("username",)
 
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = User
-        fields = ("phone",)
+        fields = ("username",)
