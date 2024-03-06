@@ -14,6 +14,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
 
 class Blog(models.Model):
     title = models.CharField(max_length=255, unique=True)
@@ -45,3 +49,7 @@ class Comments(models.Model):
 
     def __str__(self):
         return self.text
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
